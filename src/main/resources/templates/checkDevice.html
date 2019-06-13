@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" >
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+
+    <title>ManagementPlatform</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' name='viewport' >
+    <meta name="viewport" content="width=device-width" >
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link href="../static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../static/css/amaze.css" rel="stylesheet" >
+
+
+    <link href="../static/css/themify-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+		<div class="sidebar" data-background-color="brown" data-active-color="danger">
+	    <!--
+			Tip 1: you can change the color of the sidebar's background using: data-background-color="white | brown"
+			Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+		-->
+            <div class="logo">
+                <a href="#" class="simple-text">
+                    管理平台
+                </a>
+            </div>
+            <div class="logo logo-mini">
+                <a href="#" class="simple-text">
+                    M
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+				<ul class="nav">
+                    <li>
+                        <a href="home.html">
+                            <i class="ti-panel"></i>
+                            <p>实时监控</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a data-toggle="collapse" href="#manage" class="collapsed" aria-expanded="false">
+                            <i class="ti-clipboard"></i>
+                            <p>设备管理
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="manage" role="navigation" aria-expanded="false" style="height: 0px;">
+                            <ul class="nav">
+                                <li class="active"><a href="checkDevice.html">查看设备信息</a></li>
+                                <li><a href="addDevice.html">设备注册</a></li>
+                                <!--<li><a href="../forms/form-validation.html">Form Validation</a></li>-->
+                                <!--<li><a href="../forms/form-wizard.html">Form Wizard</a></li>-->
+                                <!--<li><a href="../forms/sample-forms.html">Sample Forms</a></li>-->
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#userManagement" class="collapsed" aria-expanded="false">
+                            <i class="ti-package"></i>
+                            <p>用户管理
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="userManagement" role="navigation" aria-expanded="false" style="height: 0px;">
+                            <ul class="nav">
+                                <li><a href="user-profile.html">查看用户信息</a></li>
+                                <li><a href="register.html">用户注册</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+				</ul>
+
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+							<i class="ti-arrow-left"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        </button>
+                        <a class="navbar-brand" href="#"> 查看设备信息 </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-user"></i>
+                                    <p class="hidden-lg hidden-md">Profile</p>
+                                </a>
+                            </li>
+							<li>
+                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <p class="hidden-lg hidden-md">Settings</p>
+                                </a>
+                            </li>
+                            <li class="separator hidden-lg hidden-md"></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="material-datatables" >
+                    <table id="datatables" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0" >
+                        <thead >
+                        <tr>
+                            <th style="text-align: center">ID</th>
+                            <th style="text-align: center">设备编号</th>
+                            <th style="text-align: center">设备类型</th>
+                            <th style="text-align: center">持有者</th>
+                            <th style="text-align: center">设备状态</th>
+                            <th class="disabled-sorting" style="text-align: center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody style="background-color: white" align="center" id="deviceInfo">
+                        <!--<tr>-->
+                            <!--<td>1</td>-->
+                            <!--<td>PH156231</td>-->
+                            <!--<td>手持机</td>-->
+                            <!--<td>张三</td>-->
+                            <!--<td>接入</td>-->
+
+                            <!--<td class="btn-group">-->
+                                    <!--<button type="button" class="btn btn-white">接入</button>-->
+                                    <!--<button type="button" class="btn btn-white">登出</button>-->
+                                    <!--<button type="button" class="btn btn-white">移除</button>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+
+                        </tbody>
+                        <tfoot>
+                        <tr >
+                            <th style="text-align: center">ID</th>
+                            <th style="text-align: center">设备编号</th>
+                            <th style="text-align: center">设备类型</th>
+                            <th style="text-align: center">持有者</th>
+                            <th style="text-align: center">设备状态</th>
+                            <th style="text-align: center">Actions</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--   Core JS Files   -->
+        <script src="../static/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script src="../static/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../static/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+        <!--<script src="https://webapi.amap.com/maps?v=1.4.14&key=7dd5769916609fcc5c889c1797c4ebd7"></script>-->
+        <script src="../static/js/moment-with-locales.js"></script>
+        <script src="../static/js/jquery.flot.js"></script>
+        <!--<script src="../static/js/bootstrap-datetimepicker.min.js"></script>-->
+        <!--<script src="../static/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>-->
+        <script src="../static/js/amaze.js"></script>
+    <script src="../static/js/jquery.datatables.js"></script>
+    <script src="../static/js/device.js"></script>
+        <!--<script src="../static/js/flot-charts.js"></script>-->
+        <!--<script type="text/javascript" src="../static/js/echarts.js"></script>-->
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            // var data=[
+            //     {
+            //         "id": "1",
+            //         "deviceNo": "pad20190506190918",
+            //         "deviceStatus": true,
+            //         "deviceType": "pad",
+            //         "createAt": 1557140958000,
+            //         "user": {
+            //             "id": "1",
+            //             "uid": null,
+            //             "userName": "jojo",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557140947000,
+            //             "tokenCreateAt": null,
+            //             "loginToken": null
+            //         },
+            //         "uid": "1"
+            //     },
+            //     {
+            //         "id": "2",
+            //         "deviceNo": "phone20190508210627",
+            //         "deviceStatus": false,
+            //         "deviceType": "phone",
+            //         "createAt": 1557320787000,
+            //         "user": {
+            //             "id": "1",
+            //             "uid": null,
+            //             "userName": "jojo",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557140947000,
+            //             "tokenCreateAt": null,
+            //             "loginToken": null
+            //         },
+            //         "uid": "1"
+            //     },
+            //     {
+            //         "id": "3",
+            //         "deviceNo": "phone20190508214135",
+            //         "deviceStatus": false,
+            //         "deviceType": "phone",
+            //         "createAt": 1557322895000,
+            //         "user": null,
+            //         "uid": null
+            //     },
+            //     {
+            //         "id": "4",
+            //         "deviceNo": "000000000050000",
+            //         "deviceStatus": true,
+            //         "deviceType": "phone",
+            //         "createAt": 1557327549000,
+            //         "user": {
+            //             "id": "2",
+            //             "uid": null,
+            //             "userName": "wzy",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557327524000,
+            //             "tokenCreateAt": null,
+            //             "loginToken": null
+            //         },
+            //         "uid": "2"
+            //     },
+            //     {
+            //         "id": "5",
+            //         "deviceNo": "000004000000000",
+            //         "deviceStatus": false,
+            //         "deviceType": "phone",
+            //         "createAt": 1557328253000,
+            //         "user": null,
+            //         "uid": null
+            //     },
+            //     {
+            //         "id": "6",
+            //         "deviceNo": "000000000800000",
+            //         "deviceStatus": false,
+            //         "deviceType": "phone",
+            //         "createAt": 1557328404000,
+            //         "user": {
+            //             "id": "4",
+            //             "uid": null,
+            //             "userName": "aaa",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557328400000,
+            //             "tokenCreateAt": null,
+            //             "loginToken": null
+            //         },
+            //         "uid": "4"
+            //     },
+            //     {
+            //         "id": "7",
+            //         "deviceNo": "000000007000000",
+            //         "deviceStatus": false,
+            //         "deviceType": "pad",
+            //         "createAt": 1557328679000,
+            //         "user": {
+            //             "id": "4",
+            //             "uid": null,
+            //             "userName": "aaa",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557328400000,
+            //             "tokenCreateAt": null,
+            //             "loginToken": null
+            //         },
+            //         "uid": "4"
+            //     },
+            //     {
+            //         "id": "8",
+            //         "deviceNo": "000000000000006",
+            //         "deviceStatus": false,
+            //         "deviceType": "phone",
+            //         "createAt": 1557329039000,
+            //         "user": {
+            //             "id": "5",
+            //             "uid": null,
+            //             "userName": "test",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557328790000,
+            //             "tokenCreateAt": null,
+            //             "loginToken": null
+            //         },
+            //         "uid": "5"
+            //     },
+            //     {
+            //         "id": "9",
+            //         "deviceNo": "000000000000001",
+            //         "deviceStatus": false,
+            //         "deviceType": "phone",
+            //         "createAt": 1557371620000,
+            //         "user": {
+            //             "id": "10",
+            //             "uid": null,
+            //             "userName": "qwe",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557371611000,
+            //             "tokenCreateAt": "2019-05-09 11:41:34.0",
+            //             "loginToken": null
+            //         },
+            //         "uid": "10"
+            //     },
+            //     {
+            //         "id": "10",
+            //         "deviceNo": "000000000000009",
+            //         "deviceStatus": true,
+            //         "deviceType": "phone",
+            //         "createAt": 1557372422000,
+            //         "user": {
+            //             "id": "12",
+            //             "uid": null,
+            //             "userName": "987",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557372406000,
+            //             "tokenCreateAt": "2019-05-09 11:28:27.0",
+            //             "loginToken": null
+            //         },
+            //         "uid": "12"
+            //     },
+            //     {
+            //         "id": "11",
+            //         "deviceNo": "000000000000002",
+            //         "deviceStatus": false,
+            //         "deviceType": "phone",
+            //         "createAt": 1557386560000,
+            //         "user": {
+            //             "id": "14",
+            //             "uid": null,
+            //             "userName": "edge",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557386507000,
+            //             "tokenCreateAt": "2019-05-09 15:21:52.0",
+            //             "loginToken": null
+            //         },
+            //         "uid": "14"
+            //     },
+            //     {
+            //         "id": "12",
+            //         "deviceNo": "000000000000007",
+            //         "deviceStatus": true,
+            //         "deviceType": "phone",
+            //         "createAt": 1557387981000,
+            //         "user": {
+            //             "id": "19",
+            //             "uid": null,
+            //             "userName": "1111",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557387941000,
+            //             "tokenCreateAt": "2019-05-09 15:46:39.0",
+            //             "loginToken": null
+            //         },
+            //         "uid": "19"
+            //     },
+            //     {
+            //         "id": "13",
+            //         "deviceNo": "000000000000008",
+            //         "deviceStatus": true,
+            //         "deviceType": "phone",
+            //         "createAt": 1557388166000,
+            //         "user": {
+            //             "id": "20",
+            //             "uid": null,
+            //             "userName": "2222",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557388139000,
+            //             "tokenCreateAt": "2019-05-09 15:49:38.0",
+            //             "loginToken": null
+            //         },
+            //         "uid": "20"
+            //     },
+            //     {
+            //         "id": "14",
+            //         "deviceNo": "000000000000000",
+            //         "deviceStatus": true,
+            //         "deviceType": "phone",
+            //         "createAt": 1557388251000,
+            //         "user": {
+            //             "id": "21",
+            //             "uid": null,
+            //             "userName": "3333",
+            //             "password": "123456",
+            //             "phone": null,
+            //             "createAt": 1557388217000,
+            //             "tokenCreateAt": null,
+            //             "loginToken": null
+            //         },
+            //         "uid": "21"
+            //     }
+            // ]
+            var data;
+            $.ajax({
+                    url:"http://10.108.122.144:8089/devices/get_all",
+                    type: "GET",
+                    dataType:"JSON",
+                    async:false,
+                    success: function(msg) {
+                        // console.log(msg);
+                        data = msg;
+
+
+                    }
+
+                });
+            // console.log(data);
+
+
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+
+                "lengthChange": false,
+                "info": false,
+                destroy:true,
+                language: {
+                    search: "_INPUT_",
+                    "paging": {
+                        "first": "首页",
+                        "previous": "前一页",
+                        "next": "后一页",
+                        "last": "尾页"
+                    },
+                    "zeroRecords": "没有检索到数据"
+                },
+                "processing": true,//DataTables载入数据时，是否显示‘进度’提示
+                // "serverSide": true,//启动服务器端数据导入
+                "pagingType":'full_numbers',
+                // "ajax.urlOption":"http://10.108.122.144:8089/devices/get_all",
+
+
+
+                data:data,
+
+                columns: [
+                    { data: 'id' },
+                    { data: 'deviceNo'},
+                    { data: 'deviceType', defaultContent: "" },
+                    { data: 'user.userName' , defaultContent: ""},
+                    { data: 'deviceStatus' ,
+                        render:function (data,type,full) {
+                            if(data==true){
+                                return "接入"
+                            }else {
+                                return "登出"
+                            }
+                        },
+                        defaultContent: ""
+                    },
+                    {data:'deviceStatus',
+                        render:function (data,type,full) {
+                            var str;
+                            if(data==true){
+
+                                str="<td class=\"text-right\">\n" +
+                                    "<a  class=\"btn btn-simple btn-info btn-icon logout\"><span class=\"glyphicon glyphicon-ban-circle\"></a>\n" +
+                                    "<a  class=\"btn btn-simple btn-danger btn-icon remove\" ><span class=\"glyphicon glyphicon-trash\"></a>\n" +
+                                    " </td>\n"
+                            }else {
+                                str="<td class=\"text-right\">\n" +
+                                    "<a  class=\"btn btn-simple btn-info btn-icon login \" ><span class=\"glyphicon glyphicon-ok-circle\"></span></a>\n" +
+                                    "<a  class=\"btn btn-simple btn-danger btn-icon remove\" ><span class=\"glyphicon glyphicon-trash\"></a>\n" +
+                                    " </td>\n"
+
+                            }
+                            return str
+                        }
+                    }
+                ],
+
+
+        });
+            var table=$('#datatables').DataTable();
+
+            //设备登出
+            var lout = "您确定断开与此台设备的连接吗？";
+            var lin = "您确定恢复与此台设备的连接吗？";
+            var del="您确定移除此台设备吗？";
+            $("#datatables tbody").on('click', '.remove', function(e) {
+                // console.log( table.row(this).data() );
+                // $tr = $(this).closest('tr');
+                // console.log(table.row($tr).data())
+                if(confirm(del)){
+                    $tr = $(this).closest('tr');
+                    // console.log(table.row(this));
+                    // table.row($tr).remove().draw();
+                    var id=table.row($tr).data().id;
+                    console.log(id);
+                    device.deviceDelete(id);
+                    table.row($tr).remove().draw();
+                    // table.draw(true);
+                    // e.preventDefault();
+                }
+
+            });
+            $("#datatables tbody").on('click', '.logout', function(e) {
+                // console.log( table.row(this).data() );
+                // $tr = $(this).closest('tr');
+                // console.log(table.row($tr).data())
+                if(confirm(lout)){
+                    $tr = $(this).closest('tr');
+                    // console.log(table.row(this));
+                    // table.row($tr).remove().draw();
+                    var id=table.row($tr).data().id;
+                    console.log(id);
+                    device.deviceLogout(id);
+                    table.ajax.reload();
+                    table.draw(true)
+                    // e.preventDefault();
+                }
+
+            });
+            $("#datatables tbody").on('click', '.login', function(e) {
+                // console.log( table.row(this).data() );
+                // $tr = $(this).closest('tr');
+                // console.log(table.row($tr).data())
+                if(confirm(lin)){
+                    $tr = $(this).closest('tr');
+                    // console.log(table.row(this));
+                    // table.row($tr).remove().draw();
+                    var id=table.row($tr).data().id;
+                    console.log(id);
+                    device.deviceLogin(id);
+                    table.draw(true);
+                    // e.preventDefault();
+                }
+
+            });
+
+
+
+        });
+
+
+
+</script>
+
+
+</body>
+</html>

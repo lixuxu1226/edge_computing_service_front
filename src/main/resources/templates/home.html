@@ -1,0 +1,1821 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" >
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+
+    <title>ManagementPlatform</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' name='viewport' >
+    <meta name="viewport" content="width=device-width" >
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+
+    <!--<link rel="stylesheet" href="../static/css/bootstrap-submenu.css">-->
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link href="../static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../static/css/amaze.css" rel="stylesheet" >
+    <link href="../static/css/jquery-ui.css" rel="stylesheet">
+    <link href="../static/css/themify-icons.css" rel="stylesheet">
+
+
+
+
+    <!--<style type="text/css">-->
+        <!--.dropdown-submenu {-->
+            <!--position: relative;-->
+        <!--}-->
+        <!--.dropdown-submenu > .dropdown-menu {-->
+            <!--top: 0;-->
+            <!--left: 100%;-->
+            <!--margin-top: -6px;-->
+            <!--margin-left: -1px;-->
+            <!-- -webkit-border-radius: 0 6px 6px 6px;-->
+            <!-- -moz-border-radius: 0 6px 6px;-->
+            <!--border-radius: 0 6px 6px 6px;-->
+        <!--}-->
+        <!--.dropdown-submenu:hover > .dropdown-menu {-->
+            <!--display: block;-->
+        <!--}-->
+        <!--.dropdown-submenu > a:after {-->
+            <!--display: block;-->
+            <!--content: " ";-->
+            <!--float: right;-->
+            <!--width: 0;-->
+            <!--height: 0;-->
+            <!--border-color: transparent;-->
+            <!--border-style: solid;-->
+            <!--border-width: 5px 0 5px 5px;-->
+            <!--border-left-color: #ccc;-->
+            <!--margin-top: 5px;-->
+            <!--margin-right: -10px;-->
+        <!--}-->
+        <!--.dropdown-submenu:hover > a:after {-->
+            <!--border-left-color: #fff;-->
+        <!--}-->
+        <!--.dropdown-submenu.pull-left {-->
+            <!--float: none;-->
+        <!--}-->
+        <!--.dropdown-submenu.pull-left > .dropdown-menu {-->
+            <!--left: -100%;-->
+            <!--margin-left: 10px;-->
+            <!-- -webkit-border-radius: 6px 0 6px 6px;-->
+            <!-- -moz-border-radius: 6px 0 6px 6px;-->
+            <!--border-radius: 6px 0 6px 6px;-->
+        <!--}-->
+    <!--</style>-->
+    <style>
+
+        .demo-placeholder {
+            width: 100%;
+            height: 100%;
+            font-size: 14px;
+            line-height: 1.2em;
+            position: relative;
+            /*background-color: floralwhite;*/
+
+        }
+        .inner-placeholder{
+            width: 40px;height: 40px;top:0px;
+            position: absolute;
+            /*z-index: ;*/
+
+            right: 10px;
+            top:10px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="wrapper" >
+    <div class="sidebar" data-background-color="brown" data-active-color="danger" >
+        <div class="logo">
+            <a href="#" class="simple-text">
+                管理平台
+            </a>
+        </div>
+        <div class="logo logo-mini">
+            <a href="#" class="simple-text">
+                M
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="active">
+                    <a href="home.html">
+                        <i class="ti-panel"></i>
+                        <p>实时监控</p>
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="collapse" href="#manage" class="collapsed" aria-expanded="false">
+                        <i class="ti-clipboard"></i>
+                        <p>设备管理
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="manage" role="navigation" aria-expanded="false" style="height: 0px;">
+                        <ul class="nav">
+                            <li><a href="checkDevice.html">查看设备信息</a></li>
+                            <li><a href="addDevice.html">设备注册</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a data-toggle="collapse" href="#userManagement" class="collapsed" aria-expanded="false">
+                        <i class="ti-package"></i>
+                        <p>用户管理
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="userManagement" role="navigation" aria-expanded="false" style="height: 0px;">
+                        <ul class="nav">
+                            <li><a href="user-profile.html">查看用户信息</a></li>
+                            <li><a href="register.html">用户注册</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="main-panel" >
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-minimize">
+                    <!---->
+                    <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                        <i class="ti-arrow-left"></i>
+                    </button>
+                </div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                    </button>
+                    <a class="navbar-brand" href="#"> 实时监控 </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="zpdi ti-rss-alt"></i>
+                                <p class="hidden-lg hidden-md">网络状况</p>
+                                <span id="delay"></span>
+                                <!--<script>-->
+                                    <!--document.getElementById("delay").innerHTML='hello';-->
+                                <!--</script>-->
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="ti-user">
+
+                                </i>
+                                <p class="hidden-lg hidden-md">用户</p>
+
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="ti-settings"></i>
+                                <p class="hidden-lg hidden-md">设置</p>
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#" id="logout">
+                                        登出
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li class="separator hidden-lg hidden-md"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid" style="height: 100%">
+                <div class="col-lg-3" >
+                    <div class="card" style="min-height: 550px">
+                        <div class="header card-header-text">
+                            <h5 class="title" style="color: white;margin-top: -5px">
+                                边缘设备
+                            </h5>
+                        </div>
+                        <div id='deviceFullScreen' class="inner-placeholder" style="top:50px;background: url(../static/img/fullScreen.png);z-index: 4"></div>
+                        <!--background: url(../static/img/fullScreen.png)-->
+
+                        <div class="content" style="height: 500px" id="device">
+                            <!--<div class="row" style="height: 350px">-->
+                                <div id="mobileDevice-chart" class="demo-placeholder" style="background-color: white;height: 350px"></div>
+
+                            <!--</div>-->
+                            <!--<div class="row" style="height:150px ">-->
+                                <div id="deviceInfo-chart" class="demo-placeholder" style="background-color: white;height: 150px"></div>
+
+                            <!--</div>-->
+                            <!--<h8 class="title">边缘设备</h8>-->
+                            <!--width:100%;height: 100%;margin-top: 320px;left: 0px-->
+                        </div>
+                    </div>
+                    <div class="card" style="min-height: 263px">
+                        <div class="header card-header-text">
+                            <!--<div class="row">-->
+                                <!--<div class="col-lg-6">-->
+                                    <h5 class="title" style="color: white;margin-top: -5px">统计数据</h5>
+                                <!--</div>-->
+                                <!--时间选择器-->
+                                <!--<div class="col-lg-offset-6" >-->
+                                    <!--<div class="form-group" style="margin-top: -15px">-->
+                                        <!--<div class='input-group date datetimePicker'>-->
+                                            <!--<input name="dateTime" type='text' class="form-control" />-->
+                                            <!--<span class="input-group-addon">-->
+                                                <!--<span class="glyphicon glyphicon-calendar"></span>-->
+                                            <!--</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="content">
+                            <div id="data-chart" class="demo-placeholder" style="height: 200px;width: 100%">
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card" style="min-height: 550px">
+
+                        <div class="content" style="height: 550px" >
+                            <div id="map-chart" class="demo-placeholder" style="height: 100%"></div>
+                            <div id='location' class="inner-placeholder" style="right:60px;background: url(../static/img/location.png)"></div>
+
+                            <div id='mapFullScreen' class="inner-placeholder" style="background: url(../static/img/fullScreen.png)"></div>
+                        </div>
+                    </div>
+                    <div class="card" style="min-height: 263px ;" >
+                        <div class="header card-header-text">
+                            <div class="row" >
+                                <div class="col-lg-6">
+                                    <h5 class="title" style="color: white;margin-top: -5px">风险指数以及犯人数据</h5>
+
+                                </div>
+                                <div class="col-lg-3 col-lg-offset-3" style="margin-top: -15px">
+                                    <select class="form-control"  id="selectPrisoner" onchange="getPrsInfo()">
+                                        <!--<option value="li"></option>-->
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="content">
+                            <div id="realtime-chart" class="demo-placeholder" style="margin-left: -15px">
+
+                            </div>
+                            <div class="inner-placeholder" style="width:100px;height:116px;background:url(../static/img/peo.png);margin-right: 15px;margin-top: 15px">
+
+                            </div>
+                            <div class="inner-placeholder" style="margin-top: 150px;margin-right: 15px;width: 100px;height:50px">
+                                <h8>姓名：张三<br/>性别：男
+                                </h8>
+
+                            </div>
+
+                            <script>
+                                function getPrsInfo() {
+                                    var selectPrisoner=document.getElementById("selectPrisoner");
+                                    var prsVal=selectPrisoner.options[selectPrisoner.selectedIndex].value;
+                                    console.log(prsVal);
+
+                                }
+                            </script>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3" style="height: 100%">
+
+                    <div   class="card" style="min-height:263px;z-index: 5">
+                        <div class="header" >
+                            <!--<div class="row" >-->
+                                <!--<div class="col-lg-6">-->
+                                <h5 id='myDropdown1'class="title" style="color: white;margin-top: -5px">视频监控-A车摄像头1号</h5>
+                                <li class="inner-placeholder dropdown" style="right: 10px;top: 5px;">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
+                                        <i class="ti-menu"></i>
+                                        <!--<p class="hidden-lg hidden-md"></p>-->
+
+                                    </a>
+                                    <!--<div class="pre-scrollable" style="text-align: center;height:200px">-->
+
+                                    <ul  class="dropdown-menu pull-right pre-scrollable" style="margin-right: 0px;height: 200px">
+                                            <li><a id="A车摄像头2号" onclick="changeCamera(this)"><p class="text-muted">A车摄像头2号</p></a></li>
+                                            <li><a id="A车摄像头3号" onclick="changeCamera(this)"><p class="text-muted">A车摄像头3号</p></a></li>
+                                            <li><a id="B车摄像头1号" onclick="changeCamera(this)"><p class="text-muted">B车摄像头1号</p></a></li>
+                                            <!--<li class="divider"></li>-->
+                                            <li><a id="B车摄像头2号" onclick="changeCamera(this)"><p class="text-muted">B车摄像头2号</p></a></li>
+                                            <li><a id="B车摄像头3号" onclick="changeCamera(this)"><p class="text-muted">B车摄像头3号</p></a></li>
+                                            <li><a id="C车摄像头1号" onclick="changeCamera(this)"><p class="text-muted">C车摄像头1号</p></a></li>
+                                            <li><a id="C车摄像头2号" onclick="changeCamera(this)"><p class="text-muted">C车摄像头2号</p></a></li>
+                                    </ul>
+                                    <!--</div>-->
+
+
+
+                                </li>
+
+                        </div>
+                        <!--http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8-->
+                        <video id="video1" width=100%; min-height=100%; object-fit:fill controls playsInline webkit-playsinline [autoplay]>
+                            <source src="http://vali.cp31.ott.cibntv.net/69740A08EB8307136717242D3/0300080100588BDD253055000000015ADD89FC-846B-1940-3245-D0DB6A4E7988.mp4?ccode=050F&amp;duration=30&amp;expire=18000&amp;psid=8c463ad0c67c0c116fed2a11639b4867&amp;ups_client_netip=&amp;ups_ts=1558355968&amp;ups_userid=&amp;utid=NvtFFUggHi4CAWp4zpvMLCce&amp;vid=XMjA3NTUwODQ4OA%3D%3D&amp;vkey=Ad191b290bd0231a2914a1e98a8572868&amp;sp=&amp;bc=2" type="" />
+                        </video>
+
+                    </div>
+                    <div   class="card" style="min-height:263px;z-index: 4">
+                        <div class="header" >
+
+                            <h5 class="title" style="color: white;margin-top: -5px">视频监控-A车摄像头2号</h5>
+                            <li class="inner-placeholder dropdown" style="right: 10px;top: 5px;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
+                                    <i class="ti-menu"></i>
+
+                                </a>
+                                <ul class="dropdown-menu pull-right pre-scrollable" style="margin-right: 0px;height: 200px">
+                                    <!--<div class="pre-scrollable" style="text-align: center;height:200px">-->
+                                        <li><a href="#"><p class="text-muted">A车摄像头1号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">A车摄像头3号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">B车摄像头1号</p></a></li>
+                                        <!--<li class="divider"></li>-->
+                                        <li><a href="#"><p class="text-muted">B车摄像头2号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">B车摄像头3号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">C车摄像头1号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">C车摄像头2号</p></a></li>
+                                    <!--</div>-->
+                                </ul>
+
+                            </li>
+
+                        </div>
+                        <!--<video preload="metadata" conrtols="true" src="http://vali.cp31.ott.cibntv.net/69740A08EB8307136717242D3/0300080100588BDD253055000000015ADD89FC-846B-1940-3245-D0DB6A4E7988.mp4?ccode=050F&amp;duration=30&amp;expire=18000&amp;psid=8c463ad0c67c0c116fed2a11639b4867&amp;ups_client_netip=&amp;ups_ts=1558355968&amp;ups_userid=&amp;utid=NvtFFUggHi4CAWp4zpvMLCce&amp;vid=XMjA3NTUwODQ4OA%3D%3D&amp;vkey=Ad191b290bd0231a2914a1e98a8572868&amp;sp=&amp;bc=2" style="width: 100%; height: 100%; background-color: rgb(0, 0, 0);"></video>-->
+
+                        <!--http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8-->
+                        <!--<video id="video2" width= 100%; height=100%; object-fit: fill controls playsInline webkit-playsinline autoplay>-->
+                            <!--<source src="http://vali.cp31.ott.cibntv.net/69740A08EB8307136717242D3/0300080100588BDD253055000000015ADD89FC-846B-1940-3245-D0DB6A4E7988.mp4?ccode=050F&amp;duration=30&amp;expire=18000&amp;psid=8c463ad0c67c0c116fed2a11639b4867&amp;ups_client_netip=&amp;ups_ts=1558355968&amp;ups_userid=&amp;utid=NvtFFUggHi4CAWp4zpvMLCce&amp;vid=XMjA3NTUwODQ4OA%3D%3D&amp;vkey=Ad191b290bd0231a2914a1e98a8572868&amp;sp=&amp;bc=2" type="" />-->
+                        <!--</video>-->
+                        <div class="demo-placeholder" style="width:100%;height:100%;background-color:black"></div>
+
+                        <!--<div class="header card-header-text">-->
+                        <!--<h8 class="title">视频监控1</h8>-->
+                        <!--&lt;!&ndash;<p class="category">New employees on 15th December, 2016</p>&ndash;&gt;-->
+                        <!--</div>-->
+                    </div>
+                    <div   class="card" style="min-height:263px">
+                        <div class="header" >
+                            <!--<div class="row" >-->
+                            <!--<div class="col-lg-6">-->
+                            <h5 class="title" style="color: white;margin-top: -5px">视频监控-A车摄像头3号</h5>
+                            <li class="inner-placeholder dropdown" style="right: 10px;top: 5px;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
+                                    <i class="ti-menu"></i>
+                                    <!--<p class="hidden-lg hidden-md"></p>-->
+
+                                </a>
+                                <ul class="dropdown-menu pull-right pre-scrollable" style="margin-right: 0px;height: 200px">
+
+                                    <!--<div class="pre-scrollable" style="text-align: center;height:200px">-->
+                                        <li><a href="#"><p class="text-muted">A车摄像头1号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">A车摄像头2号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">B车摄像头1号</p></a></li>
+                                        <!--<li class="divider"></li>-->
+                                        <li><a href="#"><p class="text-muted">B车摄像头2号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">B车摄像头3号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">C车摄像头1号</p></a></li>
+                                        <li><a href="#"><p class="text-muted">C车摄像头2号</p></a></li>
+                                    <!--</div>-->
+
+                                </ul>
+
+                            </li>
+
+                        </div>
+                        <video id="video3" width= 100%; height=100%; object-fit: fill controls playsInline webkit-playsinline [autoplay]>
+                            <source src="http://vali.cp31.ott.cibntv.net/69740A08EB8307136717242D3/0300080100588BDD253055000000015ADD89FC-846B-1940-3245-D0DB6A4E7988.mp4?ccode=050F&amp;duration=30&amp;expire=18000&amp;psid=8c463ad0c67c0c116fed2a11639b4867&amp;ups_client_netip=&amp;ups_ts=1558355968&amp;ups_userid=&amp;utid=NvtFFUggHi4CAWp4zpvMLCce&amp;vid=XMjA3NTUwODQ4OA%3D%3D&amp;vkey=Ad191b290bd0231a2914a1e98a8572868&amp;sp=&amp;bc=2" type="" />
+                        </video>
+                        <!--<div class="header card-header-text">-->
+                        <!--<h8 class="title">视频监控1</h8>-->
+                        <!--&lt;!&ndash;<p class="category">New employees on 15th December, 2016</p>&ndash;&gt;-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!--   Core JS Files   -->
+<script src="../static/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="../static/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../static/js/jquery-ui.js" type="text/javascript"></script>
+<script src="../static/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.14&key=7dd5769916609fcc5c889c1797c4ebd7"></script>
+<script src="../static/js/moment-with-locales.js"></script>
+<script src="../static/js/jquery.flot.js"></script>
+<script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../static/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="../static/js/amaze.js"></script>
+<script src="../static/js/cookie.js"></script>
+<!--<script src="../static/js/bootstrap-submenu.js"></script>-->
+<script src="../static/js/ezuikit.js"></script>
+<script src="../static/js/flot-charts.js"></script>
+<script type="text/javascript" src="../static/js/echarts.js"></script>
+<script src="../static/js/device.js"></script>
+
+<script type="text/javascript">
+    // 监控
+    // var video1=new EZUIPlayer({
+    //     id: 'video1',
+    //     // autoplay: true,
+    //     // url: 'http://hls.open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.m3u8',
+    //     // accessToken: 'at.23hqfag85ypahqi2aty36nck4o22nomx-7eekzi3exi-1dkodox-ng1ybplnu',
+    //     // decoderPath: '../static/img',
+    //     // width: 600,
+    //     // height: 400,
+    //     // handleError: handleError,
+    // });
+    $(document).ready(function () {
+        var video1 = new EZUIKit.EZUIPlayer('video1');
+        video1.play();
+        var video2 = new EZUIKit.EZUIPlayer('video2');
+        video2.play();
+        var video3 = new EZUIKit.EZUIPlayer('video3');
+        video3.play();
+    })
+
+</script>
+<script type="text/javascript">
+    // $(function () {
+    $(".datetimePicker").datetimepicker({
+        language:'zh-CN',
+        autoclose:true,
+        startView:2,
+        tadayBtn:true,
+        format:'yyyy-mm-dd',
+        minView:2,
+        initialDate:new Date()
+    });//当在日期表中选择完时间后日期表就会自动关闭
+//初始化
+
+
+
+    window.addEventListener("resize", function () {
+
+        mobileDeviceChart.resize();
+        realtimeChart.resize();
+
+    });
+    //changeCamera
+    function changeCamera(obj) {
+        console.log(obj.id);
+        $('#myDropdown1').html("视频监控-"+obj.id);
+    }
+
+
+</script>
+<script type="text/javascript">
+    //全屏浏览
+    $(document).ready(function () {
+        var deviceFullScreen = document.getElementById("deviceFullScreen");
+        deviceFullScreen.onclick = function () {
+            // mobileDevice-chart
+            var mobileDevice=document.getElementById('mobileDevice-chart');
+            var deviceInfo=document.getElementById('deviceInfo-chart');
+            mobileDevice.style.height='70vh';
+            deviceInfo.style.height='30vh';
+            var deviceScreen = document.getElementById('device');
+            requestFullScreen(deviceScreen)
+        };
+        var mapFullScreen = document.getElementById("mapFullScreen");
+        mapFullScreen.onclick = function () {
+            var deviceScreen = document.getElementById('map-chart');
+            requestFullScreen(deviceScreen);
+
+        };
+
+
+
+        var requestFullScreen = function (element) {
+            var requestMethod = element.requestFullScreen
+                || element.webkitRequestFullScreen //谷歌
+                || element.mozRequestFullScreen  //火狐
+                || element.msRequestFullScreen; //IE11
+            if (requestMethod) {
+                requestMethod.call(element);   //执行这个请求的方法
+            } else if (typeof window.ActiveXObject !== "undefined") {  //window.ActiveXObject判断是否支持ActiveX控件
+                //这里其实就是模拟了按下键盘的F11，使浏览器全屏
+                var wscript = new ActiveXObject("WScript.Shell"); //创建ActiveX
+                if (wscript !== null) {    //创建成功
+                    wscript.SendKeys("{F11}");//触发f11
+                }
+            }
+        };
+
+
+        // var sidebar_mini_active
+        // var $body = $('body');
+        // if($body.hasClass('sidebar-mini')){
+        //     sidebar_mini_active = true;
+        // }
+        // $('#minimizeSidebar').on('click',function(){
+        //     if(sidebar_mini_active==true){
+        //         var
+        //     }
+        //
+        // }
+
+
+    })
+</script>
+
+<script type="text/javascript">
+    // window.init = function(){
+    $(document).ready(function () {
+        var marker,lineArr = [[116.478935,39.997761],[116.478939,39.997825],[116.478912,39.998549],[116.478912,39.998549],[116.478998,39.998555],[116.478998,39.998555],[116.479282,39.99856],[116.479658,39.998528],[116.480151,39.998453],[116.480784,39.998302],[116.480784,39.998302],[116.481149,39.998184],[116.481573,39.997997],[116.481863,39.997846],[116.482072,39.997718],[116.482362,39.997718],[116.483633,39.998935],[116.48367,39.998968],[116.484648,39.999861]];
+
+        var map = new AMap.Map('map-chart', {
+            resizeEnable:true,
+            center: [116.397428, 39.90923],
+                zoom: 17,
+                // mapStyle:"amap://styles/whitesmoke"
+            }
+        );
+        // var polyline = new AMap.Polyline({
+        //     map: map,
+        //     path: lineArr,
+        //     showDir:true,
+        //     strokeColor: "#364150",  //线颜色
+        //     // strokeOpacity: 1,     //线透明度
+        //     strokeWeight: 6,      //线宽
+        //     // strokeStyle: "solid"  //线样式
+        // });
+
+
+        //动态轨迹
+        marker = new AMap.Marker({
+            map: map,
+            position: [116.478935,39.997761],
+            icon: "https://webapi.amap.com/images/car.png",
+            offset: new AMap.Pixel(-26, -13),
+            autoRotation: true,
+            angle:-90,
+        });
+        var passedPolyline = new AMap.Polyline({
+            map: map,
+            // path: lineArr,
+            strokeColor: "#364150",  //线颜色
+            // strokeOpacity: 1,     //线透明度
+            strokeWeight: 6,      //线宽
+            // strokeStyle: "solid"  //线样式
+        });
+
+
+        marker.on('moving', function (e) {
+            passedPolyline.setPath(e.passedPath);
+        });
+        marker.moveAlong(lineArr, 200);
+        var inter=setInterval(function () {
+            map.setCenter(marker.getPosition());
+        },500);
+        //给location添加点击事件 点击之后停止计时，地图可平移；再次点击，回到车辆所在位置
+        var location=document.getElementById("location");
+        var flag=false;
+        location.onclick = function () {
+          if(flag==false){  //地图可平移
+              clearInterval(inter);
+              map.setStatus(true);
+              flag=true;
+              location.setAttribute('style','right:60px;background:url("../static/img/re_location.png")')
+              // console.log(flag);
+          }else { //回到车辆位置
+              map.setCenter(marker.getPosition());
+              inter=setInterval(function () {
+                  map.setCenter(marker.getPosition());
+              },500);
+              flag=false;
+              location.setAttribute('style','right:60px;background:url("../static/img/location.png")')
+
+              // console.log(flag);
+
+          }
+
+        };
+
+
+
+
+
+        map.setFitView();
+
+        // 创建一个 Icon
+        var startIcon = new AMap.Icon({
+            // 图标尺寸
+            size: new AMap.Size(25, 34),
+            // 图标的取图地址
+            image: '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png',
+            // 图标所用图片大小
+            imageSize: new AMap.Size(135, 40),
+            // 图标取图偏移量
+            imageOffset: new AMap.Pixel(-9, -3)
+        });
+
+        // 将 icon 传入 marker
+        var startMarker = new AMap.Marker({
+            position: new AMap.LngLat(116.478935,39.997761),
+            icon: startIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        map.add(startMarker);
+        //添加一个计算机设备图标
+        var pcIcon = new AMap.Icon({
+            // 图标尺寸
+            size: new AMap.Size(35, 41),
+            // 图标的取图地址
+            image: '../static/img/pc.png',
+            // 图标所用图片大小
+            imageSize: new AMap.Size(35, 41),
+            // 图标取图偏移量
+            imageOffset: new AMap.Pixel(0, 0)
+        });
+
+        // 将 icon 传入 marker
+        var pcMarker1 = new AMap.Marker({
+            position: new AMap.LngLat(116.485699,39.999761),
+            icon: pcIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        var pcMarker2 = new AMap.Marker({
+            position: new AMap.LngLat(116.485769,39.998861),
+            icon: pcIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        map.add(pcMarker1);
+        map.add(pcMarker2);
+        // 添加一个手机设备图标
+        var phIcon = new AMap.Icon({
+            // 图标尺寸
+            size: new AMap.Size(35, 43),
+            // 图标的取图地址
+            image: '../static/img/ph.png',
+            // 图标所用图片大小
+            imageSize: new AMap.Size(35, 43),
+            // 图标取图偏移量
+            imageOffset: new AMap.Pixel(0, 0)
+        });
+
+        // 将 icon 传入 marker
+        var phMarker = new AMap.Marker({
+            position: new AMap.LngLat(116.480151,39.999453),
+            icon: phIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        var phMarker1 = new AMap.Marker({
+            position: new AMap.LngLat(116.483151,39.998453),
+            icon: phIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        map.add(phMarker1);
+        map.add(phMarker);
+        //添加平板设备图标
+        var paIcon = new AMap.Icon({
+            // 图标尺寸
+            size: new AMap.Size(35, 42),
+            // 图标的取图地址
+            image: '../static/img/pa.png',
+            // 图标所用图片大小
+            imageSize: new AMap.Size(35, 42),
+            // 图标取图偏移量
+            imageOffset: new AMap.Pixel(0, 0)
+        });
+
+        // 将 icon 传入 marker
+        var paMarker = new AMap.Marker({
+            position: new AMap.LngLat(116.478708,39.998555),
+            icon: paIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        map.add(paMarker);
+        //小型计算中心
+        var clIcon = new AMap.Icon({
+            // 图标尺寸
+            size: new AMap.Size(35, 42),
+            // 图标的取图地址
+            image: '../static/img/cl.png',
+            // 图标所用图片大小
+            imageSize: new AMap.Size(35, 42),
+            // 图标取图偏移量
+            imageOffset: new AMap.Pixel(0, 0)
+        });
+
+        // 将 icon 传入 marker
+        var clMarker = new AMap.Marker({
+            position: new AMap.LngLat(116.4845508,39.999555),
+            icon: clIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        map.add(clMarker);
+        //添加路由器
+        var lyIcon = new AMap.Icon({
+            // 图标尺寸
+            size: new AMap.Size(35, 42),
+            // 图标的取图地址
+            image: '../static/img/ly.png',
+            // 图标所用图片大小
+            imageSize: new AMap.Size(35, 42),
+            // 图标取图偏移量
+            imageOffset: new AMap.Pixel(0, 0)
+        });
+
+        // 将 icon 传入 marker
+        var lyMarker1 = new AMap.Marker({
+            position: new AMap.LngLat(116.479708,39.998444),
+            icon: lyIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        var lyMarker2 = new AMap.Marker({
+            position: new AMap.LngLat(116.479998,39.9988444),
+            icon: lyIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        var lyMarker3 = new AMap.Marker({
+            position: new AMap.LngLat(116.4799998,39.997944),
+            icon: lyIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        var lyMarker4 = new AMap.Marker({
+            position: new AMap.LngLat(116.483509,39.997944),
+            icon: lyIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        var lyMarker5 = new AMap.Marker({
+            position: new AMap.LngLat(116.4823598,39.998944),
+            icon: lyIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        map.add(lyMarker5);
+        map.add(lyMarker4);
+        map.add(lyMarker1);
+        map.add(lyMarker2);
+        map.add(lyMarker3);
+        //基站
+        var jzIcon = new AMap.Icon({
+            // 图标尺寸
+            size: new AMap.Size(35, 42),
+            // 图标的取图地址
+            image: '../static/img/jz.png',
+            // 图标所用图片大小
+            imageSize: new AMap.Size(35, 42),
+            // 图标取图偏移量
+            imageOffset: new AMap.Pixel(0, 0)
+        });
+
+        // 将 icon 传入 marker
+        var jzMarker1 = new AMap.Marker({
+            position: new AMap.LngLat(116.482008,39.998000),
+            icon: jzIcon,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        map.add(jzMarker1);
+
+
+
+
+
+        AMap.plugin(['AMap.ToolBar','AMap.Scale','AMap.Weather','AMap.OverView'],function(){//异步同时加载多个插件
+            var toolbar = new AMap.ToolBar();
+            map.addControl(toolbar);
+            var scale = new AMap.Scale();
+            map.addControl(scale);
+            var overview = new AMap.OverView({
+                visible: true
+            });
+
+            map.addControl(overview);
+
+
+            // var district;
+            // district=map.getCity(function (result) {
+            //     district=result.district;
+            //     return district;
+            // });
+            // console.log(district);
+
+            // var weather = new AMap.Weather();
+            // weather.getLive('朝阳区', function(err, data) {
+            //     if (!err) {
+            //         var str = [];
+            //         str.push('<h4 >实时天气' + '</h4><hr>');
+            //         str.push('<p>城市/区：' + data.city + '</p>');
+            //         str.push('<p>天气：' + data.weather + '</p>');
+            //         str.push('<p>温度：' + data.temperature + '℃</p>');
+            //         str.push('<p>风向：' + data.windDirection + '</p>');
+            //         str.push('<p>风力：' + data.windPower + ' 级</p>');
+            //         str.push('<p>空气湿度：' + data.humidity + '</p>');
+            //         str.push('<p>发布时间：' + data.reportTime + '</p>');
+            //         var marker = new AMap.Marker({map: map, position: [116.478935,39.997761]});
+            //         var infoWin = new AMap.InfoWindow({
+            //             content: '<div class="info" style="position:inherit;margin-bottom:0;background-color: white;padding: 10px">'+str.join('')+'</div><div class="sharp"></div>',
+            //             isCustom:true,
+            //             offset: new AMap.Pixel(0, -37)
+            //         });
+            //         infoWin.open(map, marker.getPosition());
+            //         marker.on('mouseover', function() {
+            //             infoWin.open(map, marker.getPosition());
+            //         });
+            //     }
+            // });
+
+
+        });
+
+        //犯人列表
+        var getPrisoner=document.getElementById("selectPrisoner");
+        var objOption = document.createElement("OPTION");
+
+        $.ajax({
+            type:'GET',
+            url:'http://10.108.122.144:8089/prisoners/get_all',
+            data:{},
+            dataType:'json',
+            success:function (msg) {
+                $.each(msg,function (index,item){
+                    objOption.text= item.prisonerName;
+                    objOption.value=Number(item.id);
+                    getPrisoner.options.add(objOption);
+                })
+            }
+        })
+    })
+
+    // }
+</script>
+<!--<script>-->
+    <!--$(document).ready(function () {-->
+        <!--var $html = $('html');-->
+
+        <!--$html.addClass('perfect-scrollbar-off');-->
+        <!--// console.log('t');-->
+        <!--var $sidebar_collapse = $('.sidebar .collapse');-->
+        <!--$sidebar_collapse.collapse('hide').on('hidden.bs.collapse',function(){-->
+            <!--$(this).css('height','auto');-->
+        <!--});-->
+        <!--var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;-->
+
+        <!--// var $btn = $('minimizeSidebar')-->
+        <!--if(isWindows){-->
+            <!--$('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');-->
+        <!--}-->
+        <!--var $body = $('body');-->
+
+
+        <!--$body.addClass('sidebar-mini');-->
+        <!--// $btn.html('<i class="ti-arrow-right"></i>');-->
+
+        <!--$sidebar_collapse.css('height','auto');-->
+    <!--})-->
+
+
+<!--</script>-->
+<script type="text/javascript">
+   $(document).ready(function () {
+       $('#logout').click(function () {
+           var url =window.location.search;
+           var arrUrl=url.substr(1);
+           var userName=decodeURI(arrUrl.split('=')[1]);
+           var token=docCookies.getItem(userName).toString();
+
+           $.ajax({
+               url:'http://10.108.122.144:8089/users/logout' + "?token=" + token,
+               type:'DELETE',
+               dataType:'json',
+               data:{},
+
+               success:function (msg) {
+                   if(msg.code==200){
+                       alert("用户登出成功");
+                        window.location.href='login.html';
+                   }
+               }
+           })
+
+
+       })
+   })
+</script>
+
+<script type="text/javascript">
+
+    var deviceAll;
+    var data;
+    var link;
+    var isLoaded=false;
+    data=[{
+        category: 0,
+        name: '云中心',
+        x:400,
+        y:-200,
+        symbolSize:[60,48],
+        symbol:'image://../static/img/cloud.png',
+        //symbolOffset:['-30%',0]
+        //symbolKeepAspect:true,
+
+    },
+        {
+            category: 1,
+            name: '车载服务器',
+            // des:'cpu占比:40%'+'<br>'+'内存占比:32%',
+            x:400,
+            y:100,
+            symbolSize:[60,48],
+            symbol:'image://../static/img/server.png',
+            //  symbolOffset:['30%',0]
+
+
+        }];
+    link=[{
+        source: '车载服务器',
+        target: '云中心'
+    }];
+
+    function getData(opts){
+        $.ajax({
+            url:'http://10.108.122.144:8089/devices/get_all',
+            type:'GET',
+            dataType:'json',
+            async:false,
+            // data:{},
+            beforeSend: function() {
+                if(opts.init === 1) {
+                    console.log('loading')
+                    // $('.zh-loading').show();
+                }
+                isLoaded = false;
+            },
+            success:function (msg) {
+                deviceAll=msg;
+                // console.log(deviceAll);
+            },
+            complete: function() {
+                if(opts.init === 1) {
+                    // $('.zh-loading').hide();
+                    console.log('loaded')
+                }
+                isLoaded = true;
+            },
+
+
+        });
+        // console.log(deviceAll)
+
+        var HN=0;
+        var AN=0;
+
+        for(var i=0;i<deviceAll.length;i++){
+            var temp={};
+            var temp1={};
+            if(deviceAll[i].deviceType=='pad'||deviceAll[i].deviceType=='ipad') {
+
+                if(deviceAll[i].deviceStatus==true){
+                    temp = {
+                        category: 3,
+                        name: deviceAll[i].id,
+                        des: '',
+                        x: 400+Math.pow(-1,AN)*70 * AN,
+                        y: 500,
+                        symbolSize: [30,35],
+                        symbol: 'image://../static/img/pad.png',
+                    }
+
+                }else {
+                    temp = {
+                        category: 3,
+                        name: deviceAll[i].id,
+                        des: '',
+                        x: 400+Math.pow(-1,AN)*60 * AN,
+                        y: 500,
+                        symbolSize: [30,35],
+                        symbol: 'image://../static/img/re_pad.png',
+                    }
+                };
+                AN++;
+
+            }else {
+                HN++;
+                if(deviceAll[i].deviceStatus==true){
+                    temp = {
+                        category: 2,
+                        name: deviceAll[i].id,
+                        des: '',
+                        x: 400+Math.pow(-1,HN)*40 * HN,
+                        y: 300,
+                        symbolSize: [30,24],
+                        symbol: 'image://../static/img/phone.png',
+                    }
+                }else {
+                    temp = {
+                        category: 2,
+                        name: deviceAll[i].id,
+                        des: '',
+                        x: 400+Math.pow(-1,HN)*40 * HN,
+                        y: 300,
+                        symbolSize: [30,24],
+                        symbol: 'image://../static/img/re_phone.png',
+                    }
+                }
+
+            }
+            temp1={
+                source: deviceAll[i].id,
+                target: '车载服务器'
+            }
+            link.push(temp1);
+            data.push(temp);
+        }
+    };
+    getData({"init": 1});
+
+    // console.log(data);
+    setInterval(function() {
+        isLoaded && getData({"init": 0});
+    },2000);
+
+
+
+    mobileDeviceChart=echarts.init(document.getElementById("mobileDevice-chart"));
+    mobileDeviceChart.showLoading({
+        text:"关系图正在努力加载..."
+    });
+    mobileDeviceChart.hideLoading();
+    mobileDeviceOption = {
+        tooltip: {
+            show:true,
+            trigger: 'item',
+            // formatter: "{a} <br/>{c}%"
+            formatter: function (param) {
+
+                return param.data.des;
+            }
+        },
+        legend:[{
+            // x:'left',
+            top:10,
+            left:25,
+            // right:25,
+            // padding:[],
+            data:['云中心','车载服务器','手持机','平板'
+
+            ],
+
+            orient: 'vertical'
+        }],
+        series: [
+            {
+                type: 'graph',
+                layout: 'none',
+                //symbol:'circle',
+                symbolSize: 40,
+                // bottom:'30%',
+
+                roam: true,
+                //  edgeSymbol: ['circle', 'arrow'],
+                edgeSymbolSize: [4, 10],
+                categories: [
+                    {
+                        name: '云中心',
+                        itemStyle: {
+                            normal: {
+                                color: '#200f12',
+
+                            }
+                        }
+
+
+
+                    },
+                    {
+                        name: '车载服务器',
+                        itemStyle: {
+                            normal: {
+                                color: '#d1a9bd',
+
+                            }
+                        }
+
+                    },
+                    {
+                        name: '手持机',
+                        itemStyle: {
+                            normal: {
+                                color: '#92b0d1',
+                            }
+                        }
+
+                    },
+                    {
+                        name: '平板',
+                        itemStyle: {
+                            normal: {
+                                color: '#d1c7ce',
+                            }
+                        }
+
+
+                    }
+                ],
+                edgeLabel: {
+                    normal: {
+                        textStyle: {
+                            fontSize: 20
+                        }
+                    }
+                },
+
+                force: {
+                    repulsion: 1000,
+                    edgeLength: [10, 50]
+                },
+                draggable: true,
+
+                lineStyle: {
+                    normal: {
+                        width: 2,
+
+                        color: {
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            type: 'linear',
+                            colorStops: [{
+                                offset: 0, color: 'white' // 0% 处的颜色
+                            }, {
+                                offset: 0.5, color: '#4b565b'
+                            },
+                                {
+                                    offset: 1, color: 'white' // 100% 处的颜色
+                                }],
+                        }
+
+                    }
+                },
+
+                label: {
+                    normal: {
+                        color:'#0d0c0a',
+                        show: true,
+                        textStyle: {
+
+                        },
+                        position:'bottom'
+                    }
+                },
+                data: data,
+                links: link
+            },
+            // {
+            //     name: 'cpu占用率',
+            //     type: 'gauge',
+            //     z: 3,
+            //     min: 0,
+            //     max: 100,
+            //     // startAngle: 180,
+            //     // endAngle: 0,
+            //     center:['50%','75%'],
+            //     splitNumber: 10,
+            //     radius: '25%',
+            //     axisLine: {            // 坐标轴线
+            //         lineStyle: {       // 属性lineStyle控制线条样式
+            //             width: 5,
+            //             color : [ //表盘颜色
+            //                 [ 0.2, "#d1d1d1"],//0-50%处的颜色
+            //                 // [ 0.7, "#fffe9b" ],//51%-70%处的颜色
+            //                 [ 0.8, "#9abad6" ],//70%-90%处的颜色
+            //                 [ 1,"#364150" ],//90%-100%处的颜色
+            //             ],
+            //         }
+            //
+            //     },
+            //
+            //     axisTick: {            // 坐标轴小标记
+            //         length: 10,        // 属性length控制线长
+            //         lineStyle: {       // 属性lineStyle控制线条样式
+            //             color: 'auto'
+            //         }
+            //     },
+            //     splitLine: {           // 分隔线
+            //         length: 15,         // 属性length控制线长
+            //         lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+            //             color: 'auto'
+            //         }
+            //     },
+            //     axisLabel: {
+            //         show:false
+            //     },
+            //
+            //     title : {
+            //         // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            //         // fontWeight: 'bolder',
+            //         fontSize: 15,
+            //         offsetCenter:[0,'160%'],
+            //     },
+            //     pointer:{
+            //         length:'80%',
+            //         width:4
+            //     },
+            //     detail : {
+            //         // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            //         // formatter: function (value) {
+            //         //     value = (value + '').split('.');
+            //         //     value.length < 2 && (value.push('00'));
+            //         //     return ('00' + value[0]).slice(-2)
+            //         //         + '.' + (value[1] + '00').slice(0, 2);
+            //         // },
+            //         formatter:'{value}%',
+            //         fontSize:20,
+            //         color:'#222222',
+            //
+            //         offsetCenter:[0,'100%'],
+            //
+            //         rich: {}
+            //     },
+            //     data:[{value: 40, name: 'cpu占用率'}]
+            // },
+            // {
+            //     name: '内存占用率',
+            //     type: 'gauge',
+            //     center: ['20%', '75%'],    // 默认全局居中
+            //     radius: '25%',
+            //     min:0,
+            //     max:100,
+            //     splitNumber:10,
+            //     axisLine: {            // 坐标轴线
+            //         lineStyle: {       // 属性lineStyle控制线条样式
+            //             width: 5,
+            //             color : [ //表盘颜色
+            //                 [ 0.2, "#d1d1d1"],//0-50%处的颜色
+            //                 // [ 0.7, "#fffe9b" ],//51%-70%处的颜色
+            //                 [ 0.8, "#9abad6" ],//70%-90%处的颜色
+            //                 [ 1,"#364150" ],//90%-100%处的颜色
+            //             ],
+            //
+            //
+            //         }
+            //     },
+            //     pointer:{
+            //         length:'80%',
+            //         width:4
+            //     },
+            //     axisTick: {            // 坐标轴小标记
+            //         length: 10,        // 属性length控制线长
+            //         lineStyle: {       // 属性lineStyle控制线条样式
+            //             color: 'auto'
+            //         }
+            //     },
+            //     splitLine: {           // 分隔线
+            //         length: 15,         // 属性length控制线长
+            //         lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+            //             color: 'auto'
+            //         }
+            //     },
+            //     axisLabel: {
+            //         show:false
+            //     },
+            //
+            //     title : {
+            //         // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            //         // fontWeight: 'bolder',
+            //         fontSize: 15,
+            //         offsetCenter:[0,'160%'],
+            //     },
+            //     detail : {
+            //         // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            //         // formatter: function (value) {
+            //         //     value = (value + '').split('.');
+            //         //     value.length < 2 && (value.push('00'));
+            //         //     return ('00' + value[0]).slice(-2)
+            //         //         + '.' + (value[1] + '00').slice(0, 2);
+            //         // },
+            //         formatter:'{value}%',
+            //         fontSize:20,
+            //         color:'#222222',
+            //
+            //         offsetCenter:[0,'100%'],
+            //
+            //         rich: {}
+            //     },
+            //     data:[{value: 30, name: '内存占用率'}]
+            // },
+            // {
+            //     name: '耗电量',
+            //     type: 'gauge',
+            //     center: ['80%', '75%'],    // 默认全局居中
+            //     radius: '25%',
+            //     min: 0,
+            //     max: 100,
+            //
+            //     splitNumber: 10,
+            //     axisLine: {            // 坐标轴线
+            //         lineStyle: {       // 属性lineStyle控制线条样式
+            //             width: 5,
+            //             color : [ //表盘颜色
+            //                 [ 0.2, "#d1d1d1"],//0-50%处的颜色
+            //                 // [ 0.7, "#fffe9b" ],//51%-70%处的颜色
+            //                 [ 0.8, "#9abad6" ],//70%-90%处的颜色
+            //                 [ 1,"#364150" ],//90%-100%处的颜色
+            //             ],
+            //
+            //         }
+            //     },
+            //     axisTick: {            // 坐标轴小标记
+            //         length: 10,        // 属性length控制线长
+            //         lineStyle: {       // 属性lineStyle控制线条样式
+            //             color: 'auto'
+            //         }
+            //     },
+            //     splitLine: {           // 分隔线
+            //         length: 15,         // 属性length控制线长
+            //         lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+            //             color: 'auto'
+            //         }
+            //     },
+            //     axisLabel: {
+            //         show:false
+            //     },
+            //     pointer:{
+            //         length:'80%',
+            //         width:4
+            //     },
+            //
+            //     title : {
+            //         // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            //         // fontWeight: 'bolder',
+            //         fontSize: 15,
+            //         offsetCenter:[0,'160%'],
+            //     },
+            //     detail : {
+            //         // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            //         // formatter: function (value) {
+            //         //     value = (value + '').split('.');
+            //         //     value.length < 2 && (value.push('00'));
+            //         //     return ('00' + value[0]).slice(-2)
+            //         //         + '.' + (value[1] + '00').slice(0, 2);
+            //         // },
+            //         formatter:'{value}%',
+            //         fontSize:20,
+            //         color:'#222222',
+            //
+            //         offsetCenter:[0,'100%'],
+            //
+            //         rich: {}
+            //     },
+            //     data:[{value: 37, name: '耗电量'}]
+            // }
+
+        ]
+
+    };
+
+    mobileDeviceChart.setOption(mobileDeviceOption);
+    // console.log(mobileDeviceOption.series[1].data[0].value);
+
+
+
+
+    // mobileDeviceChart.on('click',function cutNode(param) {
+    //     var dataIndex = param.dataIndex;
+    //     var logout = "您确定断开与此台设备的连接吗？";
+    //     var login = "您确定恢复与此台设备的连接吗？";
+    //     // console.log(dataIndex);
+    //     //mobileDeviceOption.series[0].data[dataIndex].itemStyle.color='#02585b';
+    //     if (dataIndex == '0' || dataIndex == '1') {
+    //         alert("不可切断连接");
+    //
+    //     } else if (mobileDeviceOption.series[0].data[dataIndex].category == 3) {
+    //         console.log(mobileDeviceOption.series[0].data[dataIndex].name);
+    //         if (mobileDeviceOption.series[0].data[dataIndex].symbol == 'image://../static/img/pad.png') {
+    //             if (confirm(logout)) {
+    //                 // console.log("t");
+    //                 device.deviceLogout(mobileDeviceOption.series[0].data[dataIndex].name);
+    //
+    //
+    //                 mobileDeviceOption.series[0].data[dataIndex].symbol = 'image://../static/img/re_pad.png';
+    //                 mobileDeviceOption.series[0].data[dataIndex].des = 'test';
+    //             }
+    //
+    //
+    //         } else if (mobileDeviceOption.series[0].data[dataIndex].symbol == 'image://../static/img/re_pad.png') {
+    //             if (confirm(login)) {
+    //                 device.deviceLogin(mobileDeviceOption.series[0].data[dataIndex].name);
+    //                 mobileDeviceOption.series[0].data[dataIndex].symbol = 'image://../static/img/pad.png';
+    //
+    //             }
+    //         }
+    //         // mobileDeviceOption.series[0].data[dataIndex].itemStyle.normal.color='#e4e2dd';
+    //
+    //
+    //     } else if (mobileDeviceOption.series[0].data[dataIndex].category == 2) {
+    //         if (mobileDeviceOption.series[0].data[dataIndex].symbol == 'image://../static/img/phone.png') {
+    //             if (confirm(logout)) {
+    //                 device.deviceLogout(mobileDeviceOption.series[0].data[dataIndex].name);
+    //                 mobileDeviceOption.series[0].data[dataIndex].symbol = 'image://../static/img/re_phone.png';
+    //
+    //             }
+    //         } else if (mobileDeviceOption.series[0].data[dataIndex].symbol == 'image://../static/img/re_phone.png') {
+    //             if (confirm(login)) {
+    //                 device.deviceLogin(mobileDeviceOption.series[0].data[dataIndex].name);
+    //                 mobileDeviceOption.series[0].data[dataIndex].symbol = 'image://../static/img/phone.png';
+    //
+    //             }
+    //         }
+    //     }
+    //     mobileDeviceChart.clear();
+    //     mobileDeviceChart.setOption(mobileDeviceOption, true);
+    // });
+    mobileDeviceChart.on('click',function getNode(param) {
+        var dataIndex = param.dataIndex;
+        var id=mobileDeviceOption.series[0].data[dataIndex].name;
+        console.log(dataIndex);
+        console.log(id);
+
+        mobileDeviceChart.setOption(mobileDeviceOption,true);
+
+    });
+
+    dataChart=echarts.init(document.getElementById("data-chart"));
+    dataOption={
+        // title: {
+        //     text: '基础雷达图'
+        // },
+        tooltip: {},
+        // legend: {
+        //     data: ['统计数据']
+        // },
+        // grid:{
+        //   x:200,
+        //   x2:100,
+        //     y2:150
+        // },
+
+
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#040404',
+                }
+            },
+            center:['40%','50%'],
+            radius:"60%",
+            indicator: [
+                { name: '警卫数量', max: 500},
+                { name: '犯人总数', max: 1000},
+                { name: '设备总数', max: 1000},
+                { name: '风险指数-犯人生理', max: 100},
+                { name: '风险指数-周边环境', max: 100},
+                { name: '风险指数-实时监控', max: 100}
+            ]
+        },
+        series: [{
+            name: '实时数据',
+            type: 'radar',
+            // radius:'10%',
+            // areaStyle: {normal: {}},
+            lineStyle: {
+                color: '#4b565b'
+            },
+            itemStyle:{
+              color:'#ffffff',
+                borderColor:'#222222'
+            },
+            data : [
+                {
+                    value : [150, 200, 400, 20, 23, 10],
+                    // name : '统计数据'
+                }
+            ]
+        }]
+
+    };
+    dataChart.setOption(dataOption);
+
+    deviceInfoChart=echarts.init(document.getElementById("deviceInfo-chart"));
+
+    deviceInfoOption={
+        title:{
+            show:true,
+            text:'设备1',
+            color:'#364150',
+            fontFamily:"Courier New"
+
+
+        },
+        tooltip : {
+            formatter: "{a} <br/>{c}%"
+        },
+        series : [
+            {
+                name: 'cpu占用率',
+                type: 'gauge',
+                z: 3,
+                min: 0,
+                max: 100,
+                // startAngle: 180,
+                // endAngle: 0,
+                splitNumber: 10,
+                radius: '50%',
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 5,
+                        color : [ //表盘颜色
+                            [ 0.2, "#d1d1d1"],//0-50%处的颜色
+                            // [ 0.7, "#fffe9b" ],//51%-70%处的颜色
+                            [ 0.8, "#9abad6" ],//70%-90%处的颜色
+                            [ 1,"#364150" ],//90%-100%处的颜色
+                        ],
+                    }
+
+                },
+
+                axisTick: {            // 坐标轴小标记
+                    length: 10,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length: 15,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                axisLabel: {
+                    show:false
+                },
+
+                title : {
+                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    // fontWeight: 'bolder',
+                    fontSize: 15,
+                    offsetCenter:[0,'160%'],
+                },
+                pointer:{
+                    length:'80%',
+                    width:4
+                },
+                detail : {
+                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    // formatter: function (value) {
+                    //     value = (value + '').split('.');
+                    //     value.length < 2 && (value.push('00'));
+                    //     return ('00' + value[0]).slice(-2)
+                    //         + '.' + (value[1] + '00').slice(0, 2);
+                    // },
+                    formatter:'{value}%',
+                    fontSize:20,
+                    color:'#222222',
+
+                    offsetCenter:[0,'100%'],
+
+                    rich: {}
+                },
+                data:[{value: 15.6, name: 'cpu占用率'}]
+            },
+            {
+                name: '内存占用率',
+                type: 'gauge',
+                center: ['20%', '50%'],    // 默认全局居中
+                radius: '50%',
+                min:0,
+                max:100,
+                splitNumber:10,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 5,
+                        color : [ //表盘颜色
+                            [ 0.2, "#d1d1d1"],//0-50%处的颜色
+                            // [ 0.7, "#fffe9b" ],//51%-70%处的颜色
+                            [ 0.8, "#9abad6" ],//70%-90%处的颜色
+                            [ 1,"#364150" ],//90%-100%处的颜色
+                        ],
+
+
+                    }
+                },
+                pointer:{
+                    length:'80%',
+                    width:4
+                },
+                axisTick: {            // 坐标轴小标记
+                    length: 10,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length: 15,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                axisLabel: {
+                    show:false
+                },
+
+                title : {
+                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    // fontWeight: 'bolder',
+                    fontSize: 15,
+                    offsetCenter:[0,'160%'],
+                },
+                detail : {
+                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    // formatter: function (value) {
+                    //     value = (value + '').split('.');
+                    //     value.length < 2 && (value.push('00'));
+                    //     return ('00' + value[0]).slice(-2)
+                    //         + '.' + (value[1] + '00').slice(0, 2);
+                    // },
+                    formatter:'{value}%',
+                    fontSize:20,
+                    color:'#222222',
+
+                    offsetCenter:[0,'100%'],
+
+                    rich: {}
+                },
+                data:[{value: 20.5, name: '内存占用率'}]
+            },
+            {
+                name: '耗电量',
+                type: 'gauge',
+                center: ['80%', '50%'],    // 默认全局居中
+                radius: '50%',
+                min: 0,
+                max: 100,
+
+                splitNumber: 10,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 5,
+                        color : [ //表盘颜色
+                            [ 0.2, "#d1d1d1"],//0-50%处的颜色
+                            // [ 0.7, "#fffe9b" ],//51%-70%处的颜色
+                            [ 0.8, "#9abad6" ],//70%-90%处的颜色
+                            [ 1,"#364150" ],//90%-100%处的颜色
+                        ],
+
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length: 10,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length: 15,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                axisLabel: {
+                    show:false
+                },
+                pointer:{
+                    length:'80%',
+                    width:4
+                },
+
+                title : {
+                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    // fontWeight: 'bolder',
+                    fontSize: 15,
+                    offsetCenter:[0,'160%'],
+                },
+                detail : {
+                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    // formatter: function (value) {
+                    //     value = (value + '').split('.');
+                    //     value.length < 2 && (value.push('00'));
+                    //     return ('00' + value[0]).slice(-2)
+                    //         + '.' + (value[1] + '00').slice(0, 2);
+                    // },
+                    formatter:'{value}%',
+                    fontSize:20,
+                    color:'#222222',
+
+                    offsetCenter:[0,'100%'],
+
+                    rich: {}
+                },
+                data:[{value: 16.4, name: '耗电量'}]
+            }
+        ]
+
+    };
+    deviceInfoChart.setOption(deviceInfoOption);
+    setInterval(function (){
+        deviceInfoOption.series[0].data[0].value = (Math.random()*20).toFixed(1) - 0;
+        deviceInfoOption.series[1].data[0].value = (Math.random()*20).toFixed(1) - 0;
+        // deviceInfoOption.series[2].data[0].value = (Math.random()*8).toFixed(2) - 0;
+        // deviceInfoOption.series[3].data[0].value = (Math.random()*2).toFixed(2) - 0;
+        deviceInfoChart.setOption(deviceInfoOption,true);
+    },5000);
+
+
+
+    var socket;
+    var battery;
+    var cpuRate ;
+    var memRate ;
+    var devId;
+    if (typeof (WebSocket) == "undefined") {
+        console.log("遗憾：您的浏览器不支持WebSocket");
+    } else {
+        console.log("恭喜：您的浏览器支持WebSocket");
+
+        socket = new WebSocket("ws://10.108.122.144:8089//ws/webSocket/1");
+        //连接打开事件
+        socket.onopen = function() {
+        console.log("Socket 已打开");
+        socket.send("消息发送测试(From Client)");
+        };
+        //收到消息事件
+        socket.onmessage = function(msg) {
+            console.log(msg.data);
+            var netDelay;
+            var temp;
+
+
+            var reg0 = new RegExp( '{' , "g" );
+            var reg1 = new RegExp("}","g");
+            temp=msg.data.replace('data:','').replace(reg0,'').replace(reg1,'').split(';');
+            // console.log(temp);
+            //设备的实时数据
+            // devId=temp[0].replace('device:','').split(';')[0].split(':')[1];
+            // battery=temp[0].replace('device:','').split(';')[1].split(':')[1];
+            // cpuRate=temp[0].replace('device:','').split(';')[2].split(':')[1];
+            // memRate=temp[0].replace('device:','').split(';')[3].split(':')[1];
+            // console.log(devId);
+            // mobileDeviceOption.series[0].data[].des = battery;
+
+
+
+            //网络时延
+            netDelay=temp[1].replace('Network:','').split(',')[0].split(':')[1];
+            document.getElementById("delay").innerHTML=netDelay+'ms';
+            //得到select的
+
+
+
+
+
+
+
+
+        };
+        //连接关闭事件
+        socket.onclose = function() {
+        console.log("Socket已关闭");
+        };
+        //发生了错误事件
+        socket.onerror = function() {
+         alert("Socket发生了错误");
+    }
+
+    //窗口关闭时，关闭连接
+    window.unload=function() {
+        socket.close();
+    };
+}
+</script>
+
+</body>
+</html>
