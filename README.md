@@ -1,2 +1,2 @@
-# edge_computing_front
+# edge_computing_service_front
 边缘计算系统前端
